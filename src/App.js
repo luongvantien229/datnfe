@@ -1,26 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/header";
-import { SearchPopup, MobileHeaderMenu } from "./components/common";
-import Breadcrumb from "./components/breadcrumb";
-import Footer from "./components/footer";
 import NotFound from "./components/error/NotFound";
-import Home from "./pages/home";
-import About from "./pages/about";
-import Shop from "./pages/shop";
-import Blog from "./pages/blog";
-import Contact from "./pages/contact";
-import Cart from "./pages/cart";
-import LoginAndRegister from "./pages/loginAndRegister";
-import ProductDetail from "./pages/productDetail";
+import SideBar from "./components/sideBar";
+import Nav from "./components/nav";
+import Dashboard from "./components/dashboard";
+import Categories from "./components/categories";
+import AddCategories from "./components/categories/add";
 
+// Main layout wrapper component
 const MainLayout = ({ children }) => (
-  <div className="main-wrapper">
-    <Header />
-    <Breadcrumb />
-    {children}
-    <Footer />
-    <SearchPopup />
+  <div className="layout-wrapper layout-content-navbar">
+    <div className="layout-container">
+      <SideBar />
+      <div className="layout-page">
+        <Nav />
+        {children}
+      </div>
+    </div>
+    <div className="layout-overlay layout-menu-toggle"></div>
   </div>
 );
 
@@ -28,75 +25,32 @@ function App() {
   return (
     <>
       <Routes>
-        <Route
+      <Route
           path="/"
           element={
             <MainLayout>
-              <Home />
+              <Dashboard />
             </MainLayout>
           }
         />
         <Route
-          path="/about"
+          path="/categories"
           element={
             <MainLayout>
-              <About />
+              <Categories />
             </MainLayout>
           }
         />
         <Route
-          path="/shop"
+          path="/add-categories"
           element={
             <MainLayout>
-              <Shop />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/blog"
-          element={
-            <MainLayout>
-              <Blog />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/contact"
-          element={
-            <MainLayout>
-              <Contact />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <MainLayout>
-              <Cart />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/login-register"
-          element={
-            <MainLayout>
-              <LoginAndRegister />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/product-detail"
-          element={
-            <MainLayout>
-              <ProductDetail />
+              <AddCategories />
             </MainLayout>
           }
         />
         <Route path="*" element={<NotFound />} /> {/* Trang 404 */}
       </Routes>
-      <div className="mobile">
-        <MobileHeaderMenu />
-      </div>
     </>
   );
 }
